@@ -10,12 +10,12 @@ public class Main {
 
     public static void main(String[] args) {
 
-        System.out.println("Please enter player name: ");
+        System.out.println("What's your name? ");
         Scanner scanner = new Scanner(System.in);
         String playerName = scanner.next();
         GamePlay gamePlay = new GamePlay();
         while (true) {
-            System.out.println("Please enter no of pins: ");
+            System.out.println("How many pins did you knock down? ");
             int noOfPins = getNoOfPins(scanner);
             gamePlay.throwBall(playerName, noOfPins);
             Game game = gamePlay.getGameByPlayer(playerName);

@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Rejects commits whose message credits Claude/AI as an author — this repo's
+# commit history should show human authorship only. Blocks patterns like
+# "Co-Authored-By: Claude ...", "Claude-Session: ...", or a bare "Generated
+# with Claude" line, case-insensitively.
+#
+# Enable with: git config core.hooksPath .githooks
+set -euo pipefail
+
+msg_file="$1"
+
+if grep -qiE '^(co-authored-by:.*claude|claude-session:)|generated (with|by) claude' "$msg_file"; then
+    echo "error: commit message credits Claude as an author — not allowed in this repo." >&2
+    echo "Remove any Co-Authored-By/Claude-Session/Generated-with-Claude lines and retry." >&2
+    exit 1
+fi
